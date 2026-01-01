@@ -1,6 +1,4 @@
 function optimalIsAnagram(s: string, t: string): boolean {
-  if (!s.length && !t.length) return true;
-
   if (s.length != t.length) return false;
 
   const hashmap: Record<string, number> = {};
@@ -14,5 +12,5 @@ function optimalIsAnagram(s: string, t: string): boolean {
     hashmap[char] = hashmap[char] - 1;
   }
 
-  return hashmap.length === 0;
+  return true;
 }
