@@ -39,31 +39,44 @@ function insertionSort(nums: number[]): void {
   }
 }
 
-function mergeSort(nums: number[]): void {
-  const n = nums.length;
-  if (n <= 1) return;
+function mergeSort(nums: number[], low = 0, high = nums.length - 1): void {
+  if (low >= high) return;
 
-  const mid = Math.floor(n / 2);
-  const left = nums.slice(0, mid);
-  const right = nums.slice(mid);
+  const mid = Math.floor((low + high) / 2);
 
-  mergeSort(left);
-  mergeSort(right);
+  mergeSort(nums, low, mid);
+  mergeSort(nums, mid + 1, high);
 
-  let i = 0,
-    j = 0,
-    k = 0;
-  while (i < left.length && j < right.length) {
-    if (left[i] < right[j]) {
-      nums[k++] = left[i++];
+  merge(nums, low, mid, high);
+}
+
+function merge(nums: number[], low: number, mid: number, high: number) {
+  const temp: number[] = [];
+
+  let i = low;
+  let j = mid + 1;
+
+  while (i <= mid && j <= high) {
+    if (nums[i] <= nums[j]) {
+      temp.push(nums[i]);
+      i++;
     } else {
-      nums[k++] = right[j++];
+      temp.push(nums[j]);
+      j++;
     }
   }
-  while (i < left.length) {
-    nums[k++] = left[i++];
+
+  while (i <= mid) {
+    temp.push(nums[i]);
+    i++;
   }
-  while (j < right.length) {
-    nums[k++] = right[j++];
+
+  while (j <= high) {
+    temp.push(nums[j]);
+    j++;
+  }
+
+  for (let k = low; k <= high; k++) {
+    nums[k] = temp[k - low];
   }
 }

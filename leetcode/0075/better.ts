@@ -2,6 +2,7 @@ function betterSortColors(nums: number[]): void {
   let countZeros = 0,
     countOnes = 0,
     countTwos = 0;
+    
   for (const num of nums) {
     if (num === 0) countZeros++;
     if (num === 1) countOnes++;
